@@ -8,6 +8,13 @@ export const siteConfig = {
   role: "Creative Technologist — 3D Motion Design, Direction Artistique IA",
   location: "France",
 
+  /**
+   * Couleur des légendes sous chaque projet sur la page d'accueil.
+   * Change simplement cette valeur pour changer l'accent du site
+   * (ex. "#111111" pour du noir, "#1d4ed8" pour du bleu).
+   */
+  accentColor: "#d61f26",
+
   bio: [
     "Je conçois des images et des films à la croisée de la 3D, du motion design et de l'IA générative — direction artistique, production vidéo et identité de marque.",
     "Je travaille aussi bien sur des pipelines de production classiques (Cinema 4D / Octane, After Effects) que sur des workflows IA (génération d'image, de vidéo, automatisation créative).",
