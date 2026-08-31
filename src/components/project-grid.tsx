@@ -15,9 +15,16 @@ export function ProjectGrid({ projects }: { projects: Project[] }) {
       {projects.map((project) => (
         <article key={project.id} className="flex flex-col gap-3">
           <div className="flex flex-col gap-1">
-            {project.media.map((media, i) => (
-              <ProjectMediaItem key={media.key ?? i} media={media} />
-            ))}
+            {project.media[0] && (
+              <ProjectMediaItem media={project.media[0]} />
+            )}
+            {project.media.length > 1 && (
+              <div className="grid grid-cols-2 gap-1">
+                {project.media.slice(1).map((media, i) => (
+                  <ProjectMediaItem key={media.key ?? i + 1} media={media} />
+                ))}
+              </div>
+            )}
           </div>
           <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
             <h2 className="text-sm">{project.title}</h2>
