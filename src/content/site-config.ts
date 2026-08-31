@@ -27,9 +27,9 @@ export const siteConfig = {
   ],
 
   contact: {
-    email: "m.morvan@poderm.com",
+    email: "malow.morvan@gmail.com",
     instagram: "", // ex: "https://instagram.com/..."
-    linkedin: "", // ex: "https://linkedin.com/in/..."
+    linkedin: "https://www.linkedin.com/in/malow-morvan-5119b4207/",
   },
 
   footerCredits: "Site conçu et développé par Malow Morvan.",
