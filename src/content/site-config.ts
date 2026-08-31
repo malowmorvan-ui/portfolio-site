@@ -9,11 +9,11 @@ export const siteConfig = {
   location: "France",
 
   /**
-   * Couleur des légendes sous chaque projet sur la page d'accueil.
+   * Couleur des titres et descriptions des projets sur la page d'accueil.
    * Change simplement cette valeur pour changer l'accent du site
-   * (ex. "#111111" pour du noir, "#1d4ed8" pour du bleu).
+   * (ex. "#d61f26" pour du rouge, "#1d4ed8" pour du bleu).
    */
-  accentColor: "#d61f26",
+  accentColor: "#111111",
 
   bio: [
     "Je conçois des images et des films à la croisée de la 3D, du motion design et de l'IA générative — direction artistique, production vidéo et identité de marque.",

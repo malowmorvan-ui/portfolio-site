@@ -87,17 +87,21 @@ export function ProjectGrid({ projects }: { projects: Project[] }) {
 
   return (
     <div>
-      {/* Left column: name, revealing info & contact on hover. */}
+      {/* Left column: the name, revealing a short info card on hover; a click
+          pins it open. The card gets a solid background because the media now
+          runs behind it. */}
       <div
         ref={infoRef}
-        className="fixed left-6 top-1/2 z-20 hidden w-60 -translate-y-1/2 lg:block"
+        className={`fixed left-3 top-1/2 z-20 hidden w-64 -translate-y-1/2 rounded-t-sm p-3 transition-colors duration-200 lg:block ${
+          showInfo ? "bg-background/95 backdrop-blur-sm" : ""
+        }`}
         onMouseEnter={() => setHoverInfo(true)}
         onMouseLeave={() => setHoverInfo(false)}
       >
         <button
           type="button"
           onClick={() => setPinnedInfo((v) => !v)}
-          className="cursor-pointer text-left text-sm font-medium tracking-tight"
+          className="cursor-pointer text-left text-sm font-medium tracking-tight outline-none focus-visible:underline"
           aria-expanded={showInfo}
         >
           {siteConfig.name}
@@ -105,17 +109,15 @@ export function ProjectGrid({ projects }: { projects: Project[] }) {
 
         {/* Absolute so that revealing it never moves the name off centre. */}
         <div
-          className={`absolute left-0 top-full mt-4 flex max-h-[38vh] w-60 flex-col gap-3 overflow-y-auto text-xs leading-relaxed transition-opacity duration-300 ${
-            showInfo ? "opacity-100" : "pointer-events-none opacity-0"
+          className={`absolute left-0 right-0 top-full flex flex-col gap-2 rounded-b-sm bg-background/95 px-3 pb-3 text-xs leading-relaxed backdrop-blur-sm transition-all duration-300 ${
+            showInfo
+              ? "translate-y-0 opacity-100"
+              : "pointer-events-none -translate-y-1 opacity-0"
           }`}
         >
-          <p className="text-muted">{siteConfig.role}</p>
+          <p className="pt-3 text-muted">{siteConfig.role}</p>
 
-          {siteConfig.bio.map((paragraph, i) => (
-            <p key={i}>{paragraph}</p>
-          ))}
-
-          <div className="flex flex-col gap-1">
+          <div className="flex flex-col gap-1 pt-1">
             {contact.email && (
               <a className="hover:underline" href={`mailto:${contact.email}`}>
                 {contact.email}
