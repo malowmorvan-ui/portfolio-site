@@ -10,18 +10,23 @@ import { siteConfig } from "@/content/site-config";
  * Home page: one continuous scroll, one project per screen.
  *
  * On large screens two fixed columns frame the media, both vertically centred:
- *  - left: the name. Hovering (or clicking, for touch) it reveals info &
- *    contact and hides the project list.
- *  - right: every project, name + description, the one currently on screen in
- *    the accent colour and the others faded. Clicking one scrolls to it.
+ *  - left: the name. Hovering it reveals info & contact and hides the project
+ *    list; clicking pins that open until you click the name again or click
+ *    anywhere outside it.
+ *  - right: the project titles only, the one currently on screen in the accent
+ *    colour and the others faded. Clicking one scrolls to it.
  *
- * Below `lg` neither column fits, so the top bar handles navigation and each
- * project simply carries its caption underneath.
+ * Each project's description sits under its media. Below `lg` neither fixed
+ * column fits, so the top bar handles navigation and the caption under the
+ * media carries the title as well.
  */
 export function ProjectGrid({ projects }: { projects: Project[] }) {
   const [active, setActive] = useState(0);
-  const [showInfo, setShowInfo] = useState(false);
+  const [hoverInfo, setHoverInfo] = useState(false);
+  const [pinnedInfo, setPinnedInfo] = useState(false);
   const sectionRefs = useRef<(HTMLElement | null)[]>([]);
+  const infoRef = useRef<HTMLDivElement | null>(null);
+  const showInfo = hoverInfo || pinnedInfo;
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -45,6 +50,18 @@ export function ProjectGrid({ projects }: { projects: Project[] }) {
     }
     return () => observer.disconnect();
   }, [projects.length]);
+
+  // While pinned, a click anywhere outside the left column releases it.
+  useEffect(() => {
+    if (!pinnedInfo) return;
+    function onDocClick(event: MouseEvent) {
+      if (!infoRef.current?.contains(event.target as Node)) {
+        setPinnedInfo(false);
+      }
+    }
+    document.addEventListener("click", onDocClick);
+    return () => document.removeEventListener("click", onDocClick);
+  }, [pinnedInfo]);
 
   if (projects.length === 0) {
     return (
@@ -72,13 +89,14 @@ export function ProjectGrid({ projects }: { projects: Project[] }) {
     <div>
       {/* Left column: name, revealing info & contact on hover. */}
       <div
+        ref={infoRef}
         className="fixed left-6 top-1/2 z-20 hidden w-60 -translate-y-1/2 lg:block"
-        onMouseEnter={() => setShowInfo(true)}
-        onMouseLeave={() => setShowInfo(false)}
+        onMouseEnter={() => setHoverInfo(true)}
+        onMouseLeave={() => setHoverInfo(false)}
       >
         <button
           type="button"
-          onClick={() => setShowInfo((v) => !v)}
+          onClick={() => setPinnedInfo((v) => !v)}
           className="cursor-pointer text-left text-sm font-medium tracking-tight"
           aria-expanded={showInfo}
         >
@@ -153,9 +171,6 @@ export function ProjectGrid({ projects }: { projects: Project[] }) {
               <span className="block text-xs uppercase tracking-wide">
                 {project.title}
               </span>
-              {subtitleOf(project) && (
-                <span className="block text-xs">{subtitleOf(project)}</span>
-              )}
             </button>
           );
         })}
@@ -169,7 +184,7 @@ export function ProjectGrid({ projects }: { projects: Project[] }) {
           ref={(el) => {
             sectionRefs.current[index] = el;
           }}
-          className="flex min-h-[90vh] scroll-mt-16 flex-col items-center justify-center gap-7 px-5 py-14 sm:px-8 lg:px-72"
+          className="flex min-h-[90vh] scroll-mt-16 flex-col items-center justify-center gap-7 px-5 py-14 sm:px-8 lg:px-16"
         >
           <div className="flex w-full flex-wrap items-center justify-center gap-2 sm:flex-nowrap">
             {project.media.map((media, i) => (
@@ -177,12 +192,15 @@ export function ProjectGrid({ projects }: { projects: Project[] }) {
             ))}
           </div>
 
-          {/* Caption under the media: replaced by the fixed index on large screens. */}
+          {/* The description always sits here; on large screens the title is
+              carried by the fixed index instead. */}
           <div
-            className="flex flex-col items-center gap-0.5 text-center lg:hidden"
+            className="flex max-w-2xl flex-col items-center gap-0.5 text-center"
             style={{ color: accent }}
           >
-            <h2 className="text-sm uppercase tracking-wide">{project.title}</h2>
+            <h2 className="text-sm uppercase tracking-wide lg:hidden">
+              {project.title}
+            </h2>
             {subtitleOf(project) && (
               <p className="text-sm">{subtitleOf(project)}</p>
             )}

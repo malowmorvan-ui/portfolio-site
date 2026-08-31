@@ -6,7 +6,7 @@ import type { ProjectMedia } from "@/lib/types";
  * dashboard uses small square thumbnails, for instance).
  */
 const DEFAULT_CLASS =
-  "max-h-[55vh] w-auto min-w-0 max-w-full object-contain sm:max-h-[70vh]";
+  "max-h-[60vh] w-auto min-w-0 max-w-full object-contain sm:max-h-[85vh]";
 
 export function ProjectMediaItem({
   media,
