@@ -21,7 +21,7 @@ export default function InfoPage() {
 
       {siteConfig.tools.length > 0 && (
         <section className="flex flex-col gap-2">
-          <h2 className="label-caps text-muted">Outils</h2>
+          <h2 className="label-caps text-muted">Tools</h2>
           <ul className="text-sm leading-relaxed">
             {siteConfig.tools.map((tool) => (
               <li key={tool}>{tool}</li>

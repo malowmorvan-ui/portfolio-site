@@ -66,7 +66,7 @@ export function ProjectGrid({ projects }: { projects: Project[] }) {
   if (projects.length === 0) {
     return (
       <p className="label-caps text-muted px-5 py-16 sm:px-8">
-        Aucun projet publié pour le moment.
+        No published projects yet.
       </p>
     );
   }
@@ -152,7 +152,7 @@ export function ProjectGrid({ projects }: { projects: Project[] }) {
 
       {/* Right column: the project index, hidden while info is showing. */}
       <nav
-        aria-label="Projets"
+        aria-label="Projects"
         className={`pointer-events-none fixed right-6 top-1/2 z-10 hidden max-h-[80vh] w-56 -translate-y-1/2 flex-col gap-5 overflow-y-auto text-right transition-opacity duration-300 lg:flex xl:w-64 ${
           showInfo ? "opacity-0" : "opacity-100"
         }`}

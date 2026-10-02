@@ -5,39 +5,39 @@
  */
 export const siteConfig = {
   name: "Malow Morvan",
-  role: "Creative Technologist — 3D Motion Design, Direction Artistique IA",
-  location: "France",
+  role: "Creative Technologist — 3D & AI. Not a single photograph.",
+  location: "Geneva, Switzerland",
 
   /**
-   * Couleur des titres et descriptions des projets sur la page d'accueil.
-   * Change simplement cette valeur pour changer l'accent du site
-   * (ex. "#d61f26" pour du rouge, "#1d4ed8" pour du bleu).
+   * Colour of the project titles and descriptions on the home page.
+   * Change this single value to change the site's accent
+   * (e.g. "#d61f26" for red, "#1d4ed8" for blue).
    */
   accentColor: "#111111",
 
   bio: [
-    "Je conçois des images et des films à la croisée de la 3D, du motion design et de l'IA générative — direction artistique, production vidéo et identité de marque.",
-    "Je travaille aussi bien sur des pipelines de production classiques (Cinema 4D / Octane, After Effects) que sur des workflows IA (génération d'image, de vidéo, automatisation créative).",
+    "Every image and film in this portfolio is generated. 3D and AI, end to end — no cameras, no studios, no shoots.",
+    "I work across classic production pipelines (Cinema 4D / Octane, After Effects) and AI workflows — art direction, campaign production and brand identity, from concept to delivered asset.",
   ],
 
   tools: [
     "Cinema 4D / Octane",
     "After Effects",
     "Adobe InDesign",
-    "Génération d'image et vidéo IA",
-    "Python (outils créatifs)",
+    "AI image & video generation",
+    "Python (creative tooling)",
   ],
 
   clients: [
-    // Ajoutez ici les marques / clients avec qui vous avez travaillé.
+    // Add the brands / clients you have worked with here.
     // "Poderm",
   ],
 
   contact: {
     email: "malow.morvan@gmail.com",
-    instagram: "", // ex: "https://instagram.com/..."
+    instagram: "", // e.g. "https://instagram.com/..."
     linkedin: "https://www.linkedin.com/in/malow-morvan-5119b4207/",
   },
 
-  footerCredits: "Site conçu et développé par Malow Morvan.",
+  footerCredits: "Site designed and built by Malow Morvan.",
 };
