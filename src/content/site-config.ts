@@ -5,7 +5,7 @@
  */
 export const siteConfig = {
   name: "Malow Morvan",
-  role: "Creative Technologist — 3D & AI. Not a single photograph.",
+  role: "Creative Technologist — 3D & AI",
   location: "Geneva, Switzerland",
 
   /**

@@ -35,3 +35,25 @@ body {
   letter-spacing: 0.04em;
   font-size: 0.75rem;
 }
+
+/* Home stage: each new image or film fades in. */
+@keyframes stage-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.stage-media {
+  animation: stage-fade-in 350ms ease-out both;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stage-media {
+    animation: none;
+  }
+}
