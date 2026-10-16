@@ -19,9 +19,10 @@ import { INFO_STATE_EVENT, INFO_TOGGLE_EVENT } from "@/lib/info-overlay";
  *    may start silent and turns its sound on at that first interaction.
  *
  * Large screens: the name on the left (hover = full-screen white info sheet,
- * click = pin it), the project titles on the right, the description under the
- * active title. Small screens: the top bar opens the same sheet, and a caption
- * at the bottom carries the title, description and counter.
+ * click = pin it), the project titles on the right with the media counter
+ * under the active one. Small screens: the top bar opens the same sheet, and a caption
+ * at the bottom carries the title and counter. Descriptions are not shown on
+ * the stage; they stay in the page for search engines and screen readers.
  */
 
 /** Minimum wheel travel before it counts as a step (filters tiny nudges). */
@@ -274,7 +275,6 @@ export function ProjectGrid({ projects }: { projects: Project[] }) {
     );
   }
 
-  const description = project.description?.trim() || project.tags.join(", ");
   const counter =
     media.length > 1 ? `${mediaIndex + 1}/${media.length}` : null;
 
@@ -299,7 +299,6 @@ export function ProjectGrid({ projects }: { projects: Project[] }) {
         className="pointer-events-none fixed inset-x-0 bottom-0 z-10 flex flex-col items-center gap-0.5 px-5 pb-4 text-center text-xs text-white mix-blend-difference lg:hidden"
       >
         <h2 className="uppercase tracking-wide">{project.title}</h2>
-        {description && <p className="line-clamp-2 max-w-md">{description}</p>}
         {counter && <p className="tabular-nums">{counter}</p>}
       </div>
 
@@ -381,8 +380,8 @@ export function ProjectGrid({ projects }: { projects: Project[] }) {
       </div>
 
       {/* Right column (large screens): the project index, above the media and
-          the white sheet. The active project shows its description and the
-          media counter. */}
+          the white sheet. The active project shows the media counter only;
+          each description is kept for search engines and screen readers. */}
       <nav
         aria-label="Projects"
         className="pointer-events-none fixed right-6 top-1/2 z-30 hidden max-h-[80vh] w-56 -translate-y-1/2 flex-col gap-5 overflow-y-auto text-right text-white mix-blend-difference lg:flex xl:w-64"
@@ -400,11 +399,13 @@ export function ProjectGrid({ projects }: { projects: Project[] }) {
               >
                 {p.title}
               </button>
-              {isActive && !showInfo && (description || counter) && (
-                <div className="flex flex-col gap-1 text-xs leading-relaxed">
-                  {description && <p>{description}</p>}
-                  {counter && <p className="tabular-nums">{counter}</p>}
-                </div>
+              {(p.description?.trim() || p.tags.length > 0) && (
+                <p className="sr-only">
+                  {p.description?.trim() || p.tags.join(", ")}
+                </p>
+              )}
+              {isActive && !showInfo && counter && (
+                <p className="text-xs tabular-nums">{counter}</p>
               )}
             </div>
           );
